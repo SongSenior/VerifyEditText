@@ -81,7 +81,7 @@ public class VerifyEditText extends LinearLayout {
 
         mEditText = new EditText(context);
         mEditText.setInputType(inputType);
-        mEditText.setLayoutParams(new LinearLayout.LayoutParams(0, 1));
+        mEditText.setLayoutParams(new LinearLayout.LayoutParams(1, 1));
         mEditText.setCursorVisible(false);
         mEditText.setBackground(null);
         mEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(count)});//限制输入长度为1
@@ -121,7 +121,6 @@ public class VerifyEditText extends LinearLayout {
         addView(mEditText);
         //点击弹出软键盘
         setOnClickListener(v -> {
-            mEditText.requestFocus();
             showSoftKeyBoard();
         });
         //遍历生成 textview
@@ -132,7 +131,7 @@ public class VerifyEditText extends LinearLayout {
             textView.setTextColor(textColor);
             LayoutParams layoutParams = new LayoutParams(width, height == 0 ? ViewGroup.LayoutParams.WRAP_CONTENT : height);
             if (i == 0)
-                layoutParams.leftMargin = 0;
+                layoutParams.leftMargin = -1;
             else
                 layoutParams.leftMargin = margin;
             textView.setLayoutParams(layoutParams);
@@ -210,6 +209,7 @@ public class VerifyEditText extends LinearLayout {
      * 显示软键盘
      */
     private void showSoftKeyBoard() {
+        mEditText.requestFocus();
         InputMethodManager imm = (InputMethodManager) mContext.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(mEditText, InputMethodManager.SHOW_FORCED);
     }
